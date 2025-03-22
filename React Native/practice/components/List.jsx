@@ -1,5 +1,13 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
+import { Link, useRouter } from "expo-router";
 
 const users = [
   {
@@ -57,8 +65,12 @@ export default List;
 
 const ListItem = (props) => {
   const { user } = props;
+  const router = useRouter();
   return (
-    <View
+    <Pressable
+      onPress={() => {
+        router.push(`/${user.name}`);
+      }}
       style={{
         backgroundColor: "yellow",
         height: 100,
@@ -73,7 +85,7 @@ const ListItem = (props) => {
       >
         {user.name}
       </Text>
-    </View>
+    </Pressable>
   );
 };
 

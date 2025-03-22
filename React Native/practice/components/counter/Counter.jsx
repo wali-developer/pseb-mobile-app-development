@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { useState } from "react";
 import {
   Button,
@@ -41,6 +42,11 @@ const Counter = () => {
         </Text>
         <Plus onPress={increment} />
       </View>
+      <Link href={"/list"} style={{ marginTop: 20, textAlign: "center" }}>
+        <Text style={{ textDecorationLine: "underline", color: "blue" }}>
+          Go to list
+        </Text>
+      </Link>
     </ImageBackground>
   );
 };

@@ -1,12 +1,12 @@
-import { View, Text } from "react-native";
 import React from "react";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { ThemeProvider } from "../context/themeContext";
 
 const RootLayout = () => {
   return (
-    <>
-      <StatusBar style="auto" backgroundColor="lightblue" animated={true} />
+    <ThemeProvider>
+      <StatusBar backgroundColor="lightblue" animated={true} />
       <Stack>
         <Stack.Screen
           name="index"
@@ -14,6 +14,7 @@ const RootLayout = () => {
             headerShown: false,
           }}
         />
+
         <Stack.Screen
           name="(tabs)"
           options={{
@@ -21,7 +22,7 @@ const RootLayout = () => {
           }}
         />
       </Stack>
-    </>
+    </ThemeProvider>
   );
 };
 

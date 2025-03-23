@@ -1,61 +1,41 @@
-import {
-  FlatList,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import React from "react";
-import { Link, useRouter } from "expo-router";
+import { Button, FlatList, Pressable, Text, View } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { useRouter } from "expo-router";
+import axios from "axios";
+import { ThemeContext } from "../context/themeContext";
 
-const users = [
-  {
-    id: 1,
-    name: "Wali Ullah",
-  },
-  {
-    id: 2,
-    name: "Usama",
-  },
-  {
-    id: 3,
-    name: "Sameer",
-  },
-  {
-    id: 4,
-    name: "Sami",
-  },
-  {
-    id: 5,
-    name: "Wali Ullah",
-  },
-  {
-    id: 6,
-    name: "Usama",
-  },
-  {
-    id: 7,
-    name: "Sameer",
-  },
-  {
-    id: 8,
-    name: "Sami",
-  },
-];
+// APIs integrations -> GET, POST, PATCH, PUT, DELETE
 
 const List = () => {
+  const [data, setData] = useState([]);
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/users")
+      .then((response) => setData(response.data))
+      .catch((err) => console.log("Error getting list data: ", err));
+  }, []);
+
   return (
-    <View style={{ marginTop: 70, paddingHorizontal: 20 }}>
+    <View
+      style={{
+        marginTop: 70,
+        paddingHorizontal: 20,
+        backgroundColor: theme === "light" ? "#fff" : "#000",
+      }}
+    >
       {/* <ScrollView>
         {users.map((user, index) => (
           <ListItem key={index} user={user} />
         ))}
       </ScrollView> */}
+      <Button title="Change theme" onPress={toggleTheme} />
       <FlatList
-        data={users}
+        data={data}
         renderItem={({ item }) => <ListItem user={item} />}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={{ marginTop: 20 }}
       />
     </View>
   );
@@ -88,5 +68,3 @@ const ListItem = (props) => {
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({});
